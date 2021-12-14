@@ -97,9 +97,9 @@
       </mat-form-field>
     </div>
 
-    <div class="card" formGroupName="contacts">
+    <!--<div class="card" formGroupName="contacts">-->
       <h3 align="left">Контакты</h3>
-      <button class="btn" type="button">Добавить</button>
+      <button class="btn" type="button" (click)="addContacts()">Добавить</button>
       <div class="form-control">
       <!--<pre>{{form.get('contracts')}}</pre>
         <mat-form-field class="example-full-width">
@@ -113,18 +113,37 @@
         <mat-form-field class="example-full-width">
           <mat-label>Телефон</mat-label>
           <input type="tel" matInput formControlName="contact_tel">
-        </mat-form-field> -->
-        <pre>{{form.get('contacts')}}</pre>
+        </mat-form-field> 
+        <pre>{{form.get('contacts')}}</pre> -->
+        
         <ng-container formArrayName="contacts">
-          <div *ngFor="let _ of contacts.controls; index as i">
+          <pre>{{con()}}</pre>
+          <!--<div *ngFor="let _ of contacts.controls; index as i">
             <ng-container [formGroupName]="i">
-              <input formControlName="name" />
+                <mat-label>Телефон</mat-label>
+                <input formControlName="contact_tel" />
+            </ng-container>
+          </div>-->
+          <div *ngFor="let contact of contacts.controls; index as i">
+            <ng-container [formGroupName]="i">
+              <mat-form-field class="example-full-width">
+                <mat-label>Имя</mat-label>
+                <input type="text" matInput formControlName="contact_name">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Должность</mat-label>
+                <input type="text" matInput formControlName="duty">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Телефон</mat-label>
+                <input type="tel" matInput formControlName="contact_tel">
+              </mat-form-field> 
             </ng-container>
           </div>
         </ng-container>
       </div>
       
-    </div>
+    <!--</div>-->
     <button class="btn" type="submit" [disabled]="form.invalid">Отправить</button>
   </form>
 </div>

@@ -85,7 +85,20 @@ export class AppComponent /*implements OnInit*/ {
   }
 
   con() {
-    console.log(this.form.get('account')?.get('email'))
+    //console.log(this.form.get('account')?.get('email'))
+    console.log(this.form.get('contacts'))
+  }
+  //contacts = this.form.get("contacts") as FormArray;
+  addContacts() {
+    //const control = new FormControl('', Validators.required);
+    const control = new FormGroup({
+      contact_name: new FormControl(''),
+      duty: new FormControl(''),
+      contact_tel: new FormControl('')
+    })
+    //<FormArray>this.form.get('contacts').push()
+    //(this.form.get('contacts') as FormArray).push(control)
+    this.contacts.push(control)
   }
 }
 
