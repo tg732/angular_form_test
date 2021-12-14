@@ -96,7 +96,7 @@ export class AppComponent /*implements OnInit*/ {
   con() {
     //console.log(this.form.get('account')?.get('email'))
     //console.log(this.form.get('contacts'))
-    this.form.markAllAsTouched();
+    console.log(this.form);
   }
   
   //contacts = this.form.get("contacts") as FormArray;

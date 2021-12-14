@@ -79,7 +79,6 @@
             {{type.viewValue}}
           </mat-option>
         </mat-select>
-        <p>You selected: {{selectedValue}}</p>
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>ИНН</mat-label>
@@ -119,8 +118,8 @@
         <pre>{{form.get('contacts')}}</pre> -->
         
         <ng-container formArrayName="contacts">
-          <pre>{{con()}}</pre>
-          <!--<div *ngFor="let _ of contacts.controls; index as i">
+          <!--<pre>{{con()}}</pre>
+          <div *ngFor="let _ of contacts.controls; index as i">
             <ng-container [formGroupName]="i">
                 <mat-label>Телефон</mat-label>
                 <input formControlName="contact_tel" />
@@ -145,8 +144,9 @@
         </ng-container>
       </div>
       
-    <!--</div>[disabled]="form.invalid"-->
-    <button class="btn" type="submit" >Отправить</button>
+    <!--</div>-->
+    <!--<pre>{{con()}}</pre>-->
+    <button class="btn" type="submit" [disabled]="form.invalid">Отправить</button>
   </form>
 </div>
 

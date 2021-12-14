@@ -3,8 +3,8 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn 
 export const identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password');
     const re_password = control.get('re_password');
-  console.log(password?.value === re_password?.value)
-    return password?.value === re_password?.value ? { identityRevealed: true } : { identityRevealed: false };
+  
+    return password?.value !== re_password?.value ? { identityRevealed: true } : null;
   };
 
 export class MyValidators {
