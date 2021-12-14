@@ -2,6 +2,11 @@ import {Component, OnInit} from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { identityRevealedValidator, MyValidators } from './my.validators';
 
+interface CompType {
+  value: string;
+  viewValue: string;
+};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +14,11 @@ import { identityRevealedValidator, MyValidators } from './my.validators';
 })
 export class AppComponent /*implements OnInit*/ {
   //form = new FormGroup({})
-  selected = 'option1';
+  selectedValue: string = 'option1';
+  comptypes: CompType[] = [
+    {value: 'option1', viewValue: 'Юр. лицо'},
+    {value: 'option2', viewValue: 'ИП'},
+  ];
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -86,8 +95,10 @@ export class AppComponent /*implements OnInit*/ {
 
   con() {
     //console.log(this.form.get('account')?.get('email'))
-    console.log(this.form.get('contacts'))
+    //console.log(this.form.get('contacts'))
+    this.form.markAllAsTouched();
   }
+  
   //contacts = this.form.get("contacts") as FormArray;
   addContacts() {
     //const control = new FormControl('', Validators.required);

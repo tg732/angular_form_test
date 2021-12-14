@@ -74,16 +74,18 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Форма собственности</mat-label>
-        <mat-select [(value)]="selected" name="own_type">
-          <mat-option value="option1">Юр. лицо</mat-option>
-          <mat-option value="option2">ИП</mat-option>
+        <mat-select [(ngModel)]="selectedValue" formControlName="own_type">
+          <mat-option *ngFor="let type of comptypes" [value]="type.value">
+            {{type.viewValue}}
+          </mat-option>
         </mat-select>
+        <p>You selected: {{selectedValue}}</p>
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>ИНН</mat-label>
         <input type="text" matInput formControlName="inn">
       </mat-form-field>
-      <mat-form-field *ngIf="selected == 'option1'" class="example-full-width">
+      <mat-form-field *ngIf="selectedValue == 'option1'" class="example-full-width">
         <mat-label>КПП</mat-label>
         <input type="text" matInput formControlName="kpp">
       </mat-form-field>
@@ -143,8 +145,8 @@
         </ng-container>
       </div>
       
-    <!--</div>-->
-    <button class="btn" type="submit" [disabled]="form.invalid">Отправить</button>
+    <!--</div>[disabled]="form.invalid"-->
+    <button class="btn" type="submit" >Отправить</button>
   </form>
 </div>
 
