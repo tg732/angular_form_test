@@ -12,104 +12,48 @@ interface CompType {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent /*implements OnInit*/ {
+export class AppComponent implements OnInit {
+  ngOnInit(): void {
+    //setTimeout(() => this.def_form_value = 'email@ema11il' , 1000);
+    
+  }
   //form = new FormGroup({})
+  //def_form_value = '123'
+  def_form_json = {
+      "account": {
+          "email": "1@ex.com",
+          "password": "123456",
+          "re_password": "123456"
+      },
+      "profile": {
+          "name": "vvv",
+          "tel": "8(999)9999999",
+          "city": "vvv"
+      },
+      "company": {
+          "org_name": "vvv",
+          "own_type": "option1",
+          "inn": "123",
+          "kpp": "123",
+          "okpo": "123",
+          "date": "2021-12-18"
+      },
+      "contacts": [
+          {
+              "contact_name": "123",
+              "duty": "123",
+              "contact_tel": "123"
+          }
+      ]
+  }
+  /*t = setTimeout(() => {
+    this.def_form_value =  'email@ema11il';
+  }, 5000);*/
+  def_form_value = JSON.stringify(this.def_form_json)
   selectedValue: string = 'option1';
   comptypes: CompType[] = [
     {value: 'option1', viewValue: 'Юр. лицо'},
     {value: 'option2', viewValue: 'ИП'},
   ];
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-  form = new FormGroup({
-    account: new FormGroup({
-      email: new FormControl('', [
-        Validators.email, 
-        Validators.required
-      ]),
-      password: new FormControl('', [
-        Validators.minLength(6), 
-        Validators.required
-      ]),
-      re_password: new FormControl('', [
-        Validators.minLength(6), 
-        Validators.required
-      ]),
-    }, { validators: identityRevealedValidator }),
-    
-    profile: new FormGroup({
-      name: new FormControl('', [
-      ]),
-      tel: new FormControl('', [
-        Validators.pattern("^8[(][0-9]{3}[)]{0,1}[\s0-9]*$")
-      ]),
-      city: new FormControl('', [
-      ]),
-    }),
-    
-    company: new FormGroup({
-      org_name: new FormControl('', [
-        Validators.required
-      ]),
-      own_type: new FormControl('', [
-        Validators.required
-      ]),
-      inn: new FormControl('', [
-        Validators.required
-      ]),
-      kpp: new FormControl('', [
-        Validators.required
-      ]),
-      okpo: new FormControl('', [
-        Validators.required
-      ]),
-      date: new FormControl('', [
-        Validators.required
-      ]),
-    }),
-    
-    contacts: new FormArray([
-      new FormGroup({
-        contact_name: new FormControl(''),
-        duty: new FormControl(''),
-        contact_tel: new FormControl('')
-      })
-    ]),
-  })
-  //console.log(this.form)
-  /*ngOnInit() {
-    
-  }*/
-
-  submit(){
-    console.log(this.form.value)
-  }
-
-  //contacts = this.form.get('contacts') as FormArray;
-  get contacts()
-  {
-      return this.form.get('contacts') as FormArray
-  }
-
-  con() {
-    //console.log(this.form.get('account')?.get('email'))
-    //console.log(this.form.get('contacts'))
-    console.log(this.form);
-  }
-  
-  //contacts = this.form.get("contacts") as FormArray;
-  addContacts() {
-    //const control = new FormControl('', Validators.required);
-    const control = new FormGroup({
-      contact_name: new FormControl(''),
-      duty: new FormControl(''),
-      contact_tel: new FormControl('')
-    })
-    //<FormArray>this.form.get('contacts').push()
-    //(this.form.get('contacts') as FormArray).push(control)
-    this.contacts.push(control)
-  }
 }
 

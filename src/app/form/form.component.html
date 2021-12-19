@@ -1,0 +1,152 @@
+<div class="container" align="center">
+    <form class="example-form" [formGroup]="form" (ngSubmit)="submit()">
+      <h2>Регистрация</h2>
+      <div class="card" formGroupName="account">
+        <h3 align="left">Аккаунт</h3>
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email"
+                 placeholder="Ex. pat@example.com">
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="form.get('account')?.get('email')?.errors?.email">
+            Введите корректный email
+          </mat-error>
+          <mat-error *ngIf="form.get('account')?.get('email')?.errors?.required">
+            Email не может быть пустым
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Пароль</mat-label>
+          <input type="password" matInput formControlName="password">
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="form.get('account')?.get('password')?.errors?.minlength">
+            Длина должна быть не менее {{form.get('account')?.get('password')?.errors?.minlength.requiredLength}}
+          </mat-error>
+          <mat-error *ngIf="form.get('account')?.get('password')?.errors?.required">
+            Пароль не может быть пустым
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Пароль</mat-label>
+          <input type="password" matInput formControlName="re_password" >
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="form.get('account')?.get('re_password')?.errors?.minlength">
+            Длина должна быть не менее {{form.get('account')?.get('re_password')?.errors?.minlength.requiredLength}}
+          </mat-error>
+          <mat-error *ngIf="form.get('account')?.get('re_password')?.errors?.required">
+            Пароль не может быть пустым
+          </mat-error>
+          <!--<pre>{{form.get('account')?.get('password')?.value}}</pre>
+          <mat-error *ngIf="form.get('account')?.get('password')?.value != form.get('account')?.get('re_password')?.value">
+            Пароли не совпадают
+          </mat-error>
+          <mat-error *ngIf="!form.get('account')?.errors?.identityRevealed">
+            Пароли не совпадают
+          </mat-error>-->
+          <div *ngIf="!form.get('account')?.errors?.identityRevealed" class="validation">
+            <small>Пароли не совпадают</small>
+          </div>
+  
+        </mat-form-field>
+      </div>
+      
+      <div class="card" formGroupName="profile">
+        <h3 align="left">Профиль</h3>
+        <mat-form-field class="example-full-width">
+          <mat-label>Имя</mat-label>
+          <input type="text" matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Телефон</mat-label>
+          <input type="text" matInput formControlName="tel">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Город</mat-label>
+          <input type="text" matInput formControlName="city">
+        </mat-form-field>
+      </div>
+  
+      <div class="card" formGroupName="company">
+        <h3 align="left">Компания</h3>
+        <mat-form-field class="example-full-width">
+          <mat-label>Наименование</mat-label>
+          <input type="text" matInput formControlName="org_name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Форма собственности</mat-label>
+          <mat-select [(ngModel)]="selectedValue" formControlName="own_type">
+            <mat-option *ngFor="let type of comptypes" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>ИНН</mat-label>
+          <input type="text" matInput formControlName="inn">
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedValue == 'option1'" class="example-full-width">
+          <mat-label>КПП</mat-label>
+          <input type="text" matInput formControlName="kpp">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>ОКПО</mat-label>
+          <input type="text" matInput formControlName="okpo">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Дата образования</mat-label>
+          <input type="date" matInput formControlName="date">
+        </mat-form-field>
+      </div>
+  
+      <!--<div class="card" formGroupName="contacts">-->
+        <h3 align="left">Контакты</h3>
+        <button class="btn" type="button" (click)="addContacts()">Добавить</button>
+        <div class="form-control">
+        <!--<pre>{{form.get('contracts')}}</pre>
+          <mat-form-field class="example-full-width">
+            <mat-label>Имя</mat-label>
+            <input type="text" matInput formControlName="contact_name">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Должность</mat-label>
+            <input type="text" matInput formControlName="duty">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Телефон</mat-label>
+            <input type="tel" matInput formControlName="contact_tel">
+          </mat-form-field> 
+          <pre>{{form.get('contacts')}}</pre> -->
+          
+          <ng-container formArrayName="contacts">
+            <!--<pre>{{con()}}</pre>
+            <div *ngFor="let _ of contacts.controls; index as i">
+              <ng-container [formGroupName]="i">
+                  <mat-label>Телефон</mat-label>
+                  <input formControlName="contact_tel" />
+              </ng-container>
+            </div>-->
+            <div *ngFor="let contact of contacts.controls; index as i">
+              <ng-container [formGroupName]="i">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Имя</mat-label>
+                  <input type="text" matInput formControlName="contact_name">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Должность</mat-label>
+                  <input type="text" matInput formControlName="duty">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Телефон</mat-label>
+                  <input type="tel" matInput formControlName="contact_tel">
+                </mat-form-field> 
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+        
+      <!--</div>-->
+      <!--<pre>{{con()}}</pre>-->
+      <button class="btn" type="submit" [disabled]="form.invalid">Отправить</button>
+    </form>
+  </div>
+  
