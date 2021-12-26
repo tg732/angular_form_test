@@ -14,14 +14,69 @@ interface CompType {
 })
 export class FormComponent implements OnInit {
   
-  form = new FormGroup({})
-  @Input() _formDataValue = '';
-  get formDataValue(): string {
-    return this._formDataValue;
+  form = new FormGroup({
+    account: new FormGroup({
+      email: new FormControl(null, [
+        Validators.email, 
+        Validators.required
+      ]),
+      password: new FormControl(null, [
+        Validators.minLength(6), 
+        Validators.required
+      ]),
+      re_password: new FormControl(null, [
+        Validators.minLength(6), 
+        Validators.required
+      ]),
+    }, { validators: identityRevealedValidator }),
+    
+    profile: new FormGroup({
+      name: new FormControl(null, [
+      ]),
+      tel: new FormControl(null, [
+        Validators.pattern("^8[(][0-9]{3}[)]{0,1}[\s0-9]*$")
+      ]),
+      city: new FormControl(null, [
+      ]),
+    }),
+    
+    company: new FormGroup({
+      org_name: new FormControl('', [
+        Validators.required
+      ]),
+      own_type: new FormControl('', [
+        Validators.required
+      ]),
+      inn: new FormControl('', [
+        Validators.required
+      ]),
+      kpp: new FormControl('', [
+        Validators.required
+      ]),
+      okpo: new FormControl('', [
+        Validators.required
+      ]),
+      date: new FormControl('', [
+        Validators.required
+      ]),
+    }),
+    
+    contacts: new FormArray([
+      new FormGroup({
+        contact_name: new FormControl(''),
+        duty: new FormControl(''),
+        contact_tel: new FormControl('')
+      })
+    ]),
+  })
+
+  
+  @Input() set formDataValue(value: object) {
+    if (value){
+      this.form.patchValue(value)
+    }
   }
-  @Input() set formDataValue(value: string) {
-      this._formDataValue = value;
-  }
+  // TODO enum, option1->individual
   selectedValue: string = 'option1';
   comptypes: CompType[] = [
     {value: 'option1', viewValue: 'Юр. лицо'},
@@ -34,64 +89,7 @@ export class FormComponent implements OnInit {
   parsedValue: any;
 
   
-  //console.log(this.form)
   ngOnInit() {
-    this.parsedValue = JSON.parse(this.formDataValue)
-    this.form = new FormGroup({
-      account: new FormGroup({
-        email: new FormControl(this.parsedValue.account.email, [
-          Validators.email, 
-          Validators.required
-        ]),
-        password: new FormControl('', [
-          Validators.minLength(6), 
-          Validators.required
-        ]),
-        re_password: new FormControl('', [
-          Validators.minLength(6), 
-          Validators.required
-        ]),
-      }, { validators: identityRevealedValidator }),
-      
-      profile: new FormGroup({
-        name: new FormControl('', [
-        ]),
-        tel: new FormControl(this.parsedValue.profile.tel, [
-          Validators.pattern("^8[(][0-9]{3}[)]{0,1}[\s0-9]*$")
-        ]),
-        city: new FormControl(this.parsedValue.profile.city, [
-        ]),
-      }),
-      
-      company: new FormGroup({
-        org_name: new FormControl('', [
-          Validators.required
-        ]),
-        own_type: new FormControl('', [
-          Validators.required
-        ]),
-        inn: new FormControl('', [
-          Validators.required
-        ]),
-        kpp: new FormControl('', [
-          Validators.required
-        ]),
-        okpo: new FormControl('', [
-          Validators.required
-        ]),
-        date: new FormControl('', [
-          Validators.required
-        ]),
-      }),
-      
-      contacts: new FormArray([
-        new FormGroup({
-          contact_name: new FormControl(''),
-          duty: new FormControl(''),
-          contact_tel: new FormControl('')
-        })
-      ]),
-    })
   }
 
   submit(){
@@ -105,8 +103,6 @@ export class FormComponent implements OnInit {
   }
 
   con() {
-    //console.log(this.form.get('account')?.get('email'))
-    //console.log(this.form.get('contacts'))
     console.log(this.form);
   }
   
