@@ -36,13 +36,6 @@
           <mat-error *ngIf="form.get('account')?.get('re_password')?.errors?.required">
             Пароль не может быть пустым
           </mat-error>
-          <!--<pre>{{form.get('account')?.get('password')?.value}}</pre>
-          <mat-error *ngIf="form.get('account')?.get('password')?.value != form.get('account')?.get('re_password')?.value">
-            Пароли не совпадают
-          </mat-error>
-          <mat-error *ngIf="!form.get('account')?.errors?.identityRevealed">
-            Пароли не совпадают
-          </mat-error>-->
           <div *ngIf="!form.get('account')?.errors?.identityRevealed" class="validation">
             <small>Пароли не совпадают</small>
           </div>
@@ -84,7 +77,7 @@
           <mat-label>ИНН</mat-label>
           <input type="text" matInput formControlName="inn">
         </mat-form-field>
-        <mat-form-field *ngIf="selectedValue == 'option1'" class="example-full-width">
+        <mat-form-field *ngIf="selectedValue == typeValue.Entity" class="example-full-width">
           <mat-label>КПП</mat-label>
           <input type="text" matInput formControlName="kpp">
         </mat-form-field>
@@ -97,54 +90,29 @@
           <input type="date" matInput formControlName="date">
         </mat-form-field>
       </div>
-  
-      <!--<div class="card" formGroupName="contacts">-->
-        <h3 align="left">Контакты</h3>
-        <button class="btn" type="button" (click)="addContacts()">Добавить</button>
-        <div class="form-control">
-        <!--<pre>{{form.get('contracts')}}</pre>
-          <mat-form-field class="example-full-width">
-            <mat-label>Имя</mat-label>
-            <input type="text" matInput formControlName="contact_name">
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>Должность</mat-label>
-            <input type="text" matInput formControlName="duty">
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>Телефон</mat-label>
-            <input type="tel" matInput formControlName="contact_tel">
-          </mat-form-field> 
-          <pre>{{form.get('contacts')}}</pre> -->
-          
-          <ng-container formArrayName="contacts">
-            <!--<pre>{{con()}}</pre>
-            <div *ngFor="let _ of contacts.controls; index as i">
-              <ng-container [formGroupName]="i">
-                  <mat-label>Телефон</mat-label>
-                  <input formControlName="contact_tel" />
-              </ng-container>
-            </div>-->
-            <div *ngFor="let contact of contacts.controls; index as i">
-              <ng-container [formGroupName]="i">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Имя</mat-label>
-                  <input type="text" matInput formControlName="contact_name">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                  <mat-label>Должность</mat-label>
-                  <input type="text" matInput formControlName="duty">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                  <mat-label>Телефон</mat-label>
-                  <input type="tel" matInput formControlName="contact_tel">
-                </mat-form-field> 
-              </ng-container>
-            </div>
-          </ng-container>
-        </div>
-        
-      <!--</div>-->
+      <h3 align="left">Контакты</h3>
+      <button class="btn" type="button" (click)="addContacts()">Добавить</button>
+      <div class="form-control">
+        <ng-container formArrayName="contacts">
+          <div *ngFor="let contact of contacts.controls; index as i">
+            <ng-container [formGroupName]="i">
+              <mat-form-field class="example-full-width">
+                <mat-label>Имя</mat-label>
+                <input type="text" matInput formControlName="contact_name">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Должность</mat-label>
+                <input type="text" matInput formControlName="duty">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Телефон</mat-label>
+                <input type="tel" matInput formControlName="contact_tel">
+              </mat-form-field> 
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <pre>{{selectedValue}}</pre>
       <pre>{{form.value | json}}</pre>
       <button class="btn" type="submit" [disabled]="form.invalid">Отправить</button>
     </form>

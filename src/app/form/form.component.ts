@@ -3,9 +3,14 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { identityRevealedValidator } from '../my.validators';
 
 interface CompType {
-  value: string;
+  value: OrgType;
   viewValue: string;
 };
+
+enum OrgType {
+  Entity = "Entity",
+  IndividualEnt = "IndividualEnt",
+}
 
 @Component({
   selector: 'app-form',
@@ -13,7 +18,7 @@ interface CompType {
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  
+  typeValue = OrgType
   form = new FormGroup({
     account: new FormGroup({
       email: new FormControl(null, [
@@ -76,11 +81,11 @@ export class FormComponent implements OnInit {
       this.form.patchValue(value)
     }
   }
-  // TODO enum, option1->individual
-  selectedValue: string = 'option1';
+  
+  selectedValue: string = this.typeValue.Entity;
   comptypes: CompType[] = [
-    {value: 'option1', viewValue: 'Юр. лицо'},
-    {value: 'option2', viewValue: 'ИП'},
+    {value: this.typeValue.Entity, viewValue: 'Юр. лицо'},
+    {value: this.typeValue.IndividualEnt, viewValue: 'ИП'},
   ];
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -96,19 +101,12 @@ export class FormComponent implements OnInit {
     console.log(this.form.value)
   }
 
-  //contacts = this.form.get('contacts') as FormArray;
   get contacts()
   {
       return this.form.get('contacts') as FormArray
   }
-
-  con() {
-    console.log(this.form);
-  }
   
-  //contacts = this.form.get("contacts") as FormArray;
   addContacts() {
-    //const control = new FormControl('', Validators.required);
     const control = new FormGroup({
       contact_name: new FormControl(''),
       duty: new FormControl(''),
