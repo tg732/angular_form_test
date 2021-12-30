@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core'
+import { OrgType } from './form/form.component';
 
 export interface FormDataJson {
   account: {
@@ -34,38 +35,36 @@ export interface FormDataJson {
 export class AppComponent implements OnInit {
   defFormValue: FormDataJson
 
-
   ngOnInit(): void {
     setTimeout(() => {
       this.defFormValue = {
-            account: {
-                email: "1@ex.com",
-                password: "123456",
-                re_password: "123456"
-            },
-            profile: {
-                name: "vvv",
-                tel: "8(999)9999999",
-                city: "vvv"
-            },
-            company: {
-                org_name: "vvv",
-                own_type: "Entity",
-                inn: "123",
-                kpp: "123",
-                okpo: "123",
-                date: "2021-12-18"
-            },
-            contacts: [
-                {
-                    contact_name: "123",
-                    duty: "123",
-                    contact_tel: "123"
-                }
-            ]
-        }
-     } , 5000);
-    
+        account: {
+            email: "1@ex.com",
+            password: "123456",
+            re_password: "123456"
+        },
+        profile: {
+            name: "vvv",
+            tel: "8(999)9999999",
+            city: "vvv"
+        },
+        company: {
+            org_name: "vvv",
+            own_type: OrgType.Entity,
+            inn: "123",
+            kpp: "123",
+            okpo: "123",
+            date: "2021-12-18"
+        },
+        contacts: [
+            {
+                contact_name: "123",
+                duty: "123",
+                contact_tel: "123"
+            }
+        ]
+      }
+    } , 5000);
   }
 }
 

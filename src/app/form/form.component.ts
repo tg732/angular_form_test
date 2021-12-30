@@ -7,7 +7,7 @@ interface CompType {
   viewValue: string;
 };
 
-enum OrgType {
+export enum OrgType {
   Entity = "Entity",
   IndividualEnt = "IndividualEnt",
 }
@@ -82,10 +82,10 @@ export class FormComponent implements OnInit {
     }
   }
   
-  selectedValue: string = this.typeValue.Entity;
+  selectedValue: OrgType = OrgType.Entity;
   comptypes: CompType[] = [
-    {value: this.typeValue.Entity, viewValue: 'Юр. лицо'},
-    {value: this.typeValue.IndividualEnt, viewValue: 'ИП'},
+    {value: OrgType.Entity, viewValue: 'Юр. лицо'},
+    {value: OrgType.IndividualEnt, viewValue: 'ИП'},
   ];
   emailFormControl = new FormControl('', [
     Validators.required,
